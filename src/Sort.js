@@ -4,13 +4,26 @@ import { App, snapshot, done, clear } from "./sort-visualizer";
 
 import "./sort.css";
 
-function sort(array) {
+function sort(nums) {
   // do cool stuff here
 
   // call snapshot any time you do anything to the array
   // it's okay if you call it with duplicate value array,
   // it will deduplicate for you
-  snapshot(array);
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      snapshot(nums);
+
+      if (nums[i] > nums[j]) {
+        const backup = nums[i];
+        nums[i] = nums[j];
+        nums[j] = backup;
+      }
+    }
+  }
+
+  snapshot(nums);
 }
 
 export default function SortComponent() {
