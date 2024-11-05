@@ -1,16 +1,16 @@
 /*
   ArrayList
-  
+
   We are going to approximate an implementation of ArrayList. In JavaScript terms, that means we are
   going to implement an array using objects. You should not use arrays at all in this exercise, just
   objects. Make a class (or constructor function; something you can call new on) called ArrayList.
   ArrayList should have the following properties (in addition to whatever properties you create):
-  
+
   length - integer  - How many elements in the array
   push   - function - accepts a value and adds to the end of the list
   pop    - function - removes the last value in the list and returns it
   get    - function - accepts an index and returns the value at that position
-  delete - function - accepts an index, removes value from list, collapses, 
+  delete - function - accepts an index, removes value from list, collapses,
                       and returns removed value
 
   As always, you can change describe to xdescribe to prevent the unit tests from running while
@@ -19,11 +19,44 @@
 
 class ArrayList {
   // code goes here
+  constructor() {
+    this.length = 0;
+    this.array = [];
+  }
+
+  push(value) {
+    this.array[this.length] = value;
+    this.length++;
+  }
+
+  pop() {
+    const ele = this.array[this.length - 1];
+    delete this.array[this.length - 1];
+    this.length--;
+
+    return ele;
+  }
+
+  get(index) {
+    return this.array[index];
+  }
+
+  delete(index) {
+    const ele = this.array[index];
+
+    for (let i = index; i < this.length - 1; i++) {
+      this.array[i] = this.array[i + 1];
+    }
+
+    this.pop();
+
+    return ele;
+  }
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("ArrayList", function () {
+describe("ArrayList", function () {
   const range = (length) =>
     Array.apply(null, { length: length }).map(Number.call, Number);
   const abcRange = (length) =>
